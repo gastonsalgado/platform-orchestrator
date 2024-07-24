@@ -1,0 +1,15 @@
+{
+    "repository": "test2",
+    "reference": "test2",
+    "parameters": {
+        "param1": {
+            "format": "test2",
+            "default": "test2",
+            "sensitive": false
+        },
+        "param2": {
+            "format": "test2",
+            "sensitive": true
+        }
+    }
+}
