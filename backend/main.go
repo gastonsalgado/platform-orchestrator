@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/controllers"
+	"github.com/gastonsalgado/platform-orchestrator/backend/internal/managers"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 )
@@ -34,8 +36,17 @@ func setupRoutes() *mux.Router {
 func main() {
 	logger, _ := zap.NewProduction()
 	controllers.Logger = logger
+	managers.Logger = logger
+
+	gitManagerInstance := managers.GetGitManagerInstance()
+	err := gitManagerInstance.Init()
+	if err != nil {
+		logger.Error(err.Error())
+		os.Exit(1)
+	}
 
 	http.Handle("/", setupRoutes())
 	port := 8080
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	logger.Fatal(err.Error())
 }

@@ -7,6 +7,7 @@ type InfraTenantTemplateParameters struct {
 }
 
 type InfraTenantTemplate struct {
+	Id         string                                   `json:"id"`
 	Repository string                                   `json:"repository"`
 	Reference  string                                   `json:"reference"`
 	Parameters map[string]InfraTenantTemplateParameters `json:"parameters"`
