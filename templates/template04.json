@@ -1,0 +1,17 @@
+{
+    "id": "template04",
+    "repository": "test3",
+    "reference": "test3",
+    "parameters": {
+        "param1": {
+            "format": "test3",
+            "default": "test3",
+            "sensitive": false
+        },
+        "param2": {
+            "format": "test3",
+            "default": "",
+            "sensitive": true
+        }
+    }
+}
