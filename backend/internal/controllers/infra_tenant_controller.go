@@ -93,6 +93,13 @@ func CreateInfraTenant(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
+	// err = services.Apply(newInfraTenant, template)
+	// if err != nil {
+	// 	Logger.Error(err.Error())
+	// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
+	// 	return
+	// }
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 }

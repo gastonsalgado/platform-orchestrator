@@ -7,6 +7,7 @@ import (
 
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/controllers"
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/managers"
+	"github.com/gastonsalgado/platform-orchestrator/backend/secrets"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 )
@@ -34,9 +35,10 @@ func setupRoutes() *mux.Router {
 }
 
 func main() {
-	logger, _ := zap.NewProduction()
+	logger, _ := zap.NewDevelopment()
 	controllers.Logger = logger
 	managers.Logger = logger
+	secrets.Logger = logger
 
 	gitManagerInstance := managers.GetGitManagerInstance()
 	err := gitManagerInstance.Init()

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	v1 "github.com/gastonsalgado/platform-orchestrator/backend/internal/api/v1"
+	"github.com/gastonsalgado/platform-orchestrator/backend/secrets"
 )
 
 func getInfraTenantPath(id string) string {
@@ -74,7 +75,7 @@ func GetInfraTenant(id string) (*v1.InfraTenant, error) {
 	return infraTenant, nil
 }
 
-func addOrUpdateInfraTenant(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
+func addOrUpdateInfraTenantNonSensitiveData(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
 	newInfraTenant := &v1.InfraTenant{
 		Id:         id,
 		Template:   infraTenant.Template,
@@ -102,6 +103,44 @@ func addOrUpdateInfraTenant(id string, infraTenant *v1.InfraTenant, template *v1
 
 	newInfraTenantPath := getInfraTenantPath(id)
 	return os.WriteFile(newInfraTenantPath, newInfraTenantBytes, 0644)
+}
+
+func addOrUpdateInfraTenantSensitiveData(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
+	factory := secrets.SecretFactory{}
+	secretManager := factory.CreateSecretManager(secrets.GSM)
+
+	infraTenantSensitiveParameters := map[string]string{}
+	templateSensitiveParameters := secretManager.Get(template.Id)
+
+	for parameterName, parameterData := range template.Parameters {
+		if parameterData.Sensitive {
+			parameterValue, ok := infraTenant.Parameters[parameterName]
+			if ok {
+				infraTenantSensitiveParameters[parameterName] = parameterValue
+			} else {
+				infraTenantSensitiveParameters[parameterName] = templateSensitiveParameters[parameterName]
+			}
+
+		}
+	}
+
+	secretManager.Update(id, infraTenantSensitiveParameters)
+
+	return nil
+}
+
+func addOrUpdateInfraTenant(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
+	err := addOrUpdateInfraTenantNonSensitiveData(id, infraTenant, template)
+	if err != nil {
+		return nil
+	}
+
+	err = addOrUpdateInfraTenantSensitiveData(id, infraTenant, template)
+	if err != nil {
+		return nil
+	}
+
+	return nil
 }
 
 func AddInfraTenant(infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
