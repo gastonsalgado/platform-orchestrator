@@ -77,13 +77,13 @@ func CreateInfraTenantTemplate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// commitMessage := fmt.Sprintf("add InfraTenantTemplate with id %s", newTemplate.Id)
-	// err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
-	// if err != nil {
-	// 	Logger.Error(err.Error())
-	// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-	// 	return
-	// }
+	commitMessage := fmt.Sprintf("add InfraTenantTemplate with id %s", newTemplate.Id)
+	err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
+	if err != nil {
+		Logger.Error(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -123,13 +123,13 @@ func UpdateInfraTenantTemplate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if updated {
-		// commitMessage := fmt.Sprintf("update InfraTenantTemplate with id %s", templateId)
-		// err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
-		// if err != nil {
-		// 	Logger.Error(err.Error())
-		// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-		// 	return
-		// }
+		commitMessage := fmt.Sprintf("update InfraTenantTemplate with id %s", templateId)
+		err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
+		if err != nil {
+			Logger.Error(err.Error())
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
 	}
 
 	w.Header().Set("Content-Type", "application/json")

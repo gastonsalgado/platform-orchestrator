@@ -8,6 +8,7 @@ import (
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/controllers"
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/managers"
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/secrets"
+	"github.com/gastonsalgado/platform-orchestrator/backend/internal/workflows"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 )
@@ -39,6 +40,7 @@ func main() {
 	controllers.Logger = logger
 	managers.Logger = logger
 	secrets.Logger = logger
+	workflows.Logger = logger
 
 	gitManagerInstance := managers.GetGitManagerInstance()
 	err := gitManagerInstance.Init()

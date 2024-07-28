@@ -6,5 +6,5 @@ type InfraTenant struct {
 	Replicas   int               `json:"replicas,omitempty"`
 	Parameters map[string]string `json:"parameters"`
 	AutoSync   bool              `json:"autoSync"`
-	Expiry     string            `json:"expiry"`
+	Expiry     string            `json:"expiry,,omitempty"`
 }

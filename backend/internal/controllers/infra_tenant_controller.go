@@ -85,23 +85,24 @@ func CreateInfraTenant(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// commitMessage := fmt.Sprintf("add InfraTenant with id %s", newInfraTenant.Id)
-	// err = gitManager.Push(gitManager.InfraTenantsPath, commitMessage)
-	// if err != nil {
-	// 	Logger.Error(err.Error())
-	// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-	// 	return
-	// }
+	commitMessage := fmt.Sprintf("add InfraTenant with id %s", newInfraTenant.Id)
+	err = gitManager.Push(gitManager.InfraTenantsPath, commitMessage)
+	if err != nil {
+		Logger.Error(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
-	// err = services.Apply(newInfraTenant, template)
-	// if err != nil {
-	// 	Logger.Error(err.Error())
-	// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-	// 	return
-	// }
+	workflowUrl, err := services.Apply(newInfraTenant, template)
+	if err != nil {
+		Logger.Error(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, fmt.Sprintf(`{"workflowUrl": %s}`, workflowUrl))
 }
 
 func UpdateInfraTenant(w http.ResponseWriter, r *http.Request) {
@@ -147,17 +148,25 @@ func UpdateInfraTenant(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if updated {
-		// commitMessage := fmt.Sprintf("update InfraTenant with id %s", infraTenantId)
-		// err = gitManager.Push(gitManager.InfraTenantsPath, commitMessage)
-		// if err != nil {
-		// 	Logger.Error(err.Error())
-		// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-		// 	return
-		// }
+		commitMessage := fmt.Sprintf("update InfraTenant with id %s", infraTenantId)
+		err = gitManager.Push(gitManager.InfraTenantsPath, commitMessage)
+		if err != nil {
+			Logger.Error(err.Error())
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+	}
+
+	workflowUrl, err := services.Apply(updatedInfraTenant, template)
+	if err != nil {
+		Logger.Error(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, fmt.Sprintf(`{"workflowUrl": %s}`, workflowUrl))
 }
 
 func DeleteInfraTenant(w http.ResponseWriter, r *http.Request) {
@@ -184,13 +193,13 @@ func DeleteInfraTenant(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// commitMessage := fmt.Sprintf("delete InfraTenant with id %s", infraTenantId)
-	// err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
-	// if err != nil {
-	// 	Logger.Error(err.Error())
-	// 	http.Error(w, "Internal server error", http.StatusInternalServerError)
-	// 	return
-	// }
+	commitMessage := fmt.Sprintf("delete InfraTenant with id %s", infraTenantId)
+	err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
+	if err != nil {
+		Logger.Error(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
