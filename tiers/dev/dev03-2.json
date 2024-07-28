@@ -1,0 +1,10 @@
+{
+    "id": "dev03-2",
+    "template": "product1-multiregion-us-v1-0-0",
+    "parameters": {
+        "cloudAccountId": "gs-dev03",
+        "deploymentType": "MULTI_REGION",
+        "location": "us"
+    },
+    "autoSync": true
+}
