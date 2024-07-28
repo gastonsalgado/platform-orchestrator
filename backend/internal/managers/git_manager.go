@@ -39,7 +39,7 @@ func (g *gitManager) Init() error {
 	g.Url = os.Getenv("GIT_URL")
 	g.Reference = os.Getenv("GIT_REFERENCE")
 	g.InfraTenantTemplatesPath = os.Getenv("GIT_INFRA_TENANT_TEMPLATES_PATH")
-	g.InfraTenantsPath = os.Getenv("GIT_INFRA_TENANTS")
+	g.InfraTenantsPath = os.Getenv("GIT_INFRA_TENANTS_PATH")
 
 	var repository *git.Repository
 
