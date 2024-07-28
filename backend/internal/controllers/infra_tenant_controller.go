@@ -194,7 +194,7 @@ func DeleteInfraTenant(w http.ResponseWriter, r *http.Request) {
 	}
 
 	commitMessage := fmt.Sprintf("delete InfraTenant with id %s", infraTenantId)
-	err = gitManager.Push(gitManager.InfraTenantTemplatesPath, commitMessage)
+	err = gitManager.Push(gitManager.InfraTenantsPath, commitMessage)
 	if err != nil {
 		Logger.Error(err.Error())
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
