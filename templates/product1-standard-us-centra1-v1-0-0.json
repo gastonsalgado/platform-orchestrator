@@ -1,0 +1,27 @@
+{
+    "id": "product1-standard-us-centra1-v1-0-0",
+    "repository": "https://github.com/gastonsalgado/product1.git",
+    "reference": "v1.0.0",
+    "parameters": {
+        "cloudAccountId": {
+            "format": "",
+            "default": "CLOUD_ACCOUNT_ID",
+            "sensitive": false
+        },
+        "deploymentType": {
+            "format": "",
+            "default": "STANDARD",
+            "sensitive": false
+        },
+        "region": {
+            "format": "",
+            "default": "us-centra1",
+            "sensitive": false
+        },
+        "token": {
+            "format": "",
+            "default": "",
+            "sensitive": true
+        }
+    }
+}
