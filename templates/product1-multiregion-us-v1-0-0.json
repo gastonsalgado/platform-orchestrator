@@ -1,0 +1,27 @@
+{
+    "id": "product1-multiregion-us-v1-0-0",
+    "repository": "https://github.com/gastonsalgado/product1.git",
+    "reference": "v1.0.0",
+    "parameters": {
+        "cloudAccountId": {
+            "format": "",
+            "default": "CLOUD_ACCOUNT_ID",
+            "sensitive": false
+        },
+        "deploymentType": {
+            "format": "",
+            "default": "MULTI_REGION",
+            "sensitive": false
+        },
+        "location": {
+            "format": "",
+            "default": "us",
+            "sensitive": false
+        },
+        "token": {
+            "format": "",
+            "default": "",
+            "sensitive": true
+        }
+    }
+}
