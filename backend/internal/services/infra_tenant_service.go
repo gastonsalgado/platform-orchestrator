@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	v1 "github.com/gastonsalgado/platform-orchestrator/backend/internal/api/v1"
-	"github.com/gastonsalgado/platform-orchestrator/backend/secrets"
+	"github.com/gastonsalgado/platform-orchestrator/backend/internal/secrets"
 )
 
 func getInfraTenantPath(id string) string {
@@ -106,7 +106,7 @@ func addOrUpdateInfraTenantNonSensitiveData(id string, infraTenant *v1.InfraTena
 }
 
 func addOrUpdateInfraTenantSensitiveData(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTemplate) error {
-	factory := secrets.SecretFactory{}
+	factory := secrets.SecretManagerFactory{}
 	secretManager := factory.CreateSecretManager(secrets.GSM)
 
 	infraTenantSensitiveParameters := map[string]string{}

@@ -7,7 +7,7 @@ import (
 
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/controllers"
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/managers"
-	"github.com/gastonsalgado/platform-orchestrator/backend/secrets"
+	"github.com/gastonsalgado/platform-orchestrator/backend/internal/secrets"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 )

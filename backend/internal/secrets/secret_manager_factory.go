@@ -1,6 +1,6 @@
 package secrets
 
-type SecretFactory struct{}
+type SecretManagerFactory struct{}
 
 type SecretManagerType string
 
@@ -9,7 +9,7 @@ const (
 	AWSSSM SecretManagerType = "AwsSSM"
 )
 
-func (s *SecretFactory) CreateSecretManager(secretManagerType SecretManagerType) SecretManager {
+func (s *SecretManagerFactory) CreateSecretManager(secretManagerType SecretManagerType) SecretManager {
 	switch secretManagerType {
 	case GSM:
 		return GcpSecretManager{}
