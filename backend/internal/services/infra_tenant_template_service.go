@@ -26,7 +26,7 @@ func getInfraTenantTemplatesPath() string {
 	return fmt.Sprintf("%s/%s", gitManager.BasePath, gitManager.InfraTenantTemplatesPath)
 }
 
-func GetAllInfraTenantTemplate() (string, error) {
+func GetAllInfraTenantTemplates() (string, error) {
 	templatesPath := getInfraTenantTemplatesPath()
 	templateFiles, err := os.ReadDir(templatesPath)
 	if err != nil {

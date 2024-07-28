@@ -7,19 +7,14 @@ import (
 	"net/http"
 
 	v1 "github.com/gastonsalgado/platform-orchestrator/backend/internal/api/v1"
-	"github.com/gastonsalgado/platform-orchestrator/backend/internal/managers"
 	"github.com/gastonsalgado/platform-orchestrator/backend/internal/services"
 	"github.com/gorilla/mux"
-	"go.uber.org/zap"
 )
-
-var Logger *zap.Logger
-var gitManager = managers.GetGitManagerInstance()
 
 func GetInfraTenantTemplates(w http.ResponseWriter, r *http.Request) {
 	// gitManager.Pull()
 
-	result, err := services.GetAllInfraTenantTemplate()
+	result, err := services.GetAllInfraTenantTemplates()
 	if err != nil {
 		Logger.Error(err.Error())
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -71,7 +66,7 @@ func CreateInfraTenantTemplate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if len(templateBytes) > 0 {
-		http.Error(w, fmt.Sprintf("There is already an InfraTenantTemplate with with Id %s", newTemplate.Id), http.StatusConflict)
+		http.Error(w, fmt.Sprintf("InfraTenantTemplate already exists with Id %s", newTemplate.Id), http.StatusConflict)
 		return
 	}
 
@@ -118,6 +113,7 @@ func UpdateInfraTenantTemplate(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	updatedTemplate.Id = templateId
 
 	updated, err := services.UpdateInfraTenantTemplate(templateBytes, updatedTemplate)
 	if err != nil {

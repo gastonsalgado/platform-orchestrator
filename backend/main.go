@@ -23,7 +23,7 @@ func setupRoutes() *mux.Router {
 	router.HandleFunc(infraTenantTemplatePathById, controllers.DeleteInfraTenantTemplate).Methods("DELETE")
 
 	infraTenantPath := "/api/v1/infraTenant"
-	infraTenantPathById := fmt.Sprintf("%s/{id}", infraTenantTemplatePath)
+	infraTenantPathById := fmt.Sprintf("%s/{id}", infraTenantPath)
 	router.HandleFunc(infraTenantPath, controllers.GetInfraTenants).Methods("GET")
 	router.HandleFunc(infraTenantPathById, controllers.GetInfraTenantByID).Methods("GET")
 	router.HandleFunc(infraTenantPath, controllers.CreateInfraTenant).Methods("POST")
