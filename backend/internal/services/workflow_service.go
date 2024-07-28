@@ -26,7 +26,7 @@ func apply(id string, infraTenant *v1.InfraTenant, template *v1.InfraTenantTempl
 	workflow := factory.CreateWorkflow(workflows.GCPCloudBuild)
 
 	workflowSecret := fmt.Sprintf("%s-secrets", id)
-	workflow.Create(id, workflowParameters, workflowSecret)
+	workflow.Apply(id, workflowParameters, workflowSecret)
 
 	return "<WORKFLOW_MONITORING_URL>", nil
 }

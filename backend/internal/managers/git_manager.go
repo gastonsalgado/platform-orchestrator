@@ -35,11 +35,11 @@ func GetGitManagerInstance() *gitManager {
 }
 
 func (g *gitManager) Init() error {
-	g.BasePath = "/Users/gastonsalgado/po-mvp"
-	g.Url = "git@github.com:gastonsalgado/platform-orchestrator.git"
-	g.Reference = "main"
-	g.InfraTenantTemplatesPath = "templates"
-	g.InfraTenantsPath = "tiers/dev"
+	g.BasePath = os.Getenv("GIT_BASE_PATH")
+	g.Url = os.Getenv("GIT_URL")
+	g.Reference = os.Getenv("GIT_REFERENCE")
+	g.InfraTenantTemplatesPath = os.Getenv("GIT_INFRA_TENANT_TEMPLATES_PATH")
+	g.InfraTenantsPath = os.Getenv("GIT_INFRA_TENANTS")
 
 	var repository *git.Repository
 

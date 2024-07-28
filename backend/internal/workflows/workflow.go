@@ -6,7 +6,6 @@ var Logger *zap.Logger
 
 type Workflow interface {
 	Get(id string) map[string]string
-	Create(id string, parameters map[string]string, secretName string)
-	Update(id string, parameters map[string]string, secretName string)
-	Delete(id string)
+	Apply(id string, parameters map[string]string, secretName string)
+	Destroy(id string)
 }
